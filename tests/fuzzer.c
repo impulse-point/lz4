@@ -37,6 +37,9 @@
 /*-************************************
 *  Dependencies
 **************************************/
+#ifdef __unix__   /* must be included before platform.h for MAP_ANONYMOUS */
+#  include <sys/mman.h>   /* mmap */   
+#endif
 #include "platform.h"   /* _CRT_SECURE_NO_WARNINGS */
 #include "util.h"       /* U32 */
 #include <stdlib.h>
@@ -241,8 +244,6 @@ _overflowError:
 
 
 #ifdef __unix__   /* is expected to be triggered on linux+gcc */
-
-#include <sys/mman.h>   /* mmap */
 
 static void* FUZ_createLowAddr(size_t size)
 {
